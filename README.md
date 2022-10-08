@@ -7,3 +7,5 @@ TO DO
 eslint
 
 husky
+
+error handler best practices
