@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BusinessData, InvalidBusinessIdError } from "../models/business.model";
+import { BusinessData, InvalidBusinessIdError } from "../types/business.types";
 
 const UPSTREAM_URL = "https://storage.googleapis.com/coding-session-rest-api/";
 const BUSINESS_IDS = ["GXvPAor1ifNfpF0U5PTG0w", "ohGSnJtMIC5nPfYRi_HTAg"];
@@ -14,7 +14,12 @@ export async function getBusiness(id: string) {
 
   const { data: business } = await upstreamApi.get<BusinessData>(`/${id}`);
 
-  return business;
+  return {
+    data: business,
+    next: `http://localhost:3000/business/${BUSINESS_IDS.find(
+      (bid) => bid !== id
+    )}`,
+  };
 }
 
 export function getBusinessesIds() {

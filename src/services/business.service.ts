@@ -1,18 +1,23 @@
-import { Business, BusinessData, Days } from "../models/business.model";
+import { Business } from "../types/business.types";
+import { LinkedResponse } from "../types/response.types";
+import { transformToDailyHours } from "./hours.service";
 import * as UpstreamService from "./upstream.service";
 
-export async function getBusiness(id: string) {
-  const businessData = await UpstreamService.getBusiness(id);
+export async function getBusiness(
+  id: string
+): Promise<LinkedResponse<Business>> {
+  const { data: businessData, next } = await UpstreamService.getBusiness(id);
 
-  const business = stripBusinessData(businessData);
-
-  return business;
-}
-
-function stripBusinessData(data: BusinessData): Business {
   return {
-    opening_hours: data.opening_hours,
-    displayed_what: data.displayed_what,
-    displayed_where: data.displayed_where,
+    data: {
+      displayed_what: businessData.displayed_what,
+      displayed_where: businessData.displayed_where,
+      opening_hours: {
+        closed_on_holidays: businessData.opening_hours.closed_on_holidays,
+        open_by_arrangement: businessData.opening_hours.open_by_arrangement,
+        hours: transformToDailyHours(businessData.opening_hours.days),
+      },
+    },
+    next,
   };
 }

@@ -1,5 +1,5 @@
 import { Request, Router, Response, NextFunction } from "express";
-import { InvalidBusinessIdError } from "../models/business.model";
+import { InvalidBusinessIdError } from "../types/business.types";
 import * as BusinessService from "../services/business.service";
 
 const BusinessRouter = Router();
