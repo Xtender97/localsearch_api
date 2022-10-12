@@ -1,4 +1,4 @@
 export interface LinkedResponse<T> {
   data: T;
-  next: string;
+  next: string | undefined;
 }

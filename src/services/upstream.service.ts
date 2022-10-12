@@ -16,12 +16,11 @@ export async function getBusiness(id: string) {
 
   return {
     data: business,
-    next: `http://localhost:3000/business/${BUSINESS_IDS.find(
-      (bid) => bid !== id
-    )}`,
+    next: BUSINESS_IDS.find((bid) => bid !== id),
   };
 }
 
-export function getBusinessesIds() {
-  return BUSINESS_IDS;
+export function getRandomBusinessesId() {
+  const index = Math.random() > 0.5 ? 1 : 0;
+  return BUSINESS_IDS[index];
 }

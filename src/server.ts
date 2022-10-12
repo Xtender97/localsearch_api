@@ -1,8 +1,11 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import { BusinessRouter } from "./api/business.controller";
+import cors from "cors";
 
 export default function initServer() {
   const app = express();
+
+  app.use(cors());
 
   initControllers(app);
 
