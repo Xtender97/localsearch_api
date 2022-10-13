@@ -1,11 +1,8 @@
-# localsearch_api
+# Start up guide
 
-localsearch_api
+Node version: 16.17.1
 
-TO DO
-
-eslint
-
-husky
-
-error handler best practices
+```
+npm install
+npm run dev
+```
